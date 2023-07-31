@@ -1,0 +1,480 @@
+/***** global variables *****/
+/* NB some of these are also set directly in Webflow - e.g. colors and layout  */
+
+:root {
+
+  /* colors */
+  --color-primary-blue: #00247D;
+  --color-primary-red: #EF3340;
+  --color-dark-midnight: #00103D;
+  --color-dark-charcoal: #32322C;
+  --color-light-paleblue: #98C1D9;
+  --color-light-cotton: #CED3DC;
+  --color-light-ghost: #FCF7F8;
+
+  /* layout */
+  --section-padding: 8rem;
+  --container-max-width: 90rem;
+  --container-padding: 4rem; /* horizontal padding only */
+  --container-margin: max(0px, calc(0.5 * (100vw - var(--container-max-width)))); /* auto horizontal margin */
+  --container-width: min(100vw, var(--container-max-width));
+  --grid-gutter: 3rem; /* standard gutter in col layout */
+  --col-padding: 1.5rem;
+  --row-width: calc(var(--container-width) + var(--grid-gutter)); /* width of 12 columns including the negative margins */
+
+  /* graphics */
+  --line-offset: 2rem; /* gap between line and content or container edge */
+  --line-offset-2: 3rem; /* gap between line and content or container edge */
+  --benefits-card-top-padding: 2rem;
+  --benefits-card-img-height: 12rem;
+  --benefits-card-offset: 4rem; /* offset from card to card */
+  --benefits-gap: 8rem; /* space between first content section and cards */
+  --goals-card-offset: 4rem; /* offset from card to card */
+
+}
+
+/* adjust some global variables on small screens */
+@media only screen and (max-width: 992px) {
+  :root {
+    --container-padding: 2.5rem;
+  }
+}
+@media only screen and (max-width: 767px) {
+  :root {
+    --grid-gutter: 2rem; 
+    --col-padding: 1rem;
+  }
+}
+@media only screen and (max-width: 480px) {
+  :root {
+    --container-padding: 1.5rem;
+    --grid-gutter: 1rem; 
+    --col-padding: 0.5rem;
+  }
+}
+
+/***** typography *****/
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-weight: 700;
+  line-height: 1.1;
+  margin-block: 0px;
+  letter-spacing: -0.05em;
+}
+
+h1, .h1 {
+  font-size: 3rem;
+}
+
+h2, .h2 {
+  font-size: 2rem;
+}
+
+h3, .h3 {
+  font-size: 1.5rem;
+}
+
+h4, .h4 {
+  
+}
+
+h5, .h5 {
+  
+}
+
+.heading-chunky {
+	font-family: Montserrat;
+	line-height: 1.1;
+  font-weight: 900;
+  font-size: 3.5rem;
+  }
+
+  @media only screen and (max-width: 992px) {
+  }
+  @media only screen and (max-width: 767px) {
+    h1, .h1 {
+      font-size: 2rem;
+    }
+    
+    h2, .h2 {
+      font-size: 1.5rem;
+    }
+    .heading-chunky {
+      font-size: 2.5rem;
+    }
+  }
+  @media only screen and (max-width: 480px) {
+    .heading-chunky {
+      font-size: 1.5rem;
+    }
+  }
+
+.u-text-balance {
+  text-wrap: balance; 
+}
+
+
+/* nav links */
+.nav_link::after, .nav_dropdown-link::after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 0.1em;
+	background-color: currentColor;
+	opacity: 0;
+	transition: opacity 300ms, transform 300ms;
+  transform: translate3d(-100%, 0, 0);
+}
+.nav_link, .nav_dropdown-link {
+	overflow: hidden;
+}
+.nav_link:hover::after,
+.nav_link:focus::after, 
+.nav_dropdown-link:focus::after,
+.nav_dropdown-link:hover::after{
+	transform: translate3d(0, 0, 0);
+  opacity: 1;
+}
+
+
+/***** spacing *****/
+
+.flow {
+  --flow-space: 1em;
+}
+
+.flow-200 {
+  --flow-space: 2em;
+}
+
+.flow-050 {
+  --flow-space: 0.5em;
+}
+
+.flow-025 {
+  --flow-space: 0.25em;
+}
+
+.flow-000 {
+  --flow-space: 0em;
+}
+
+.flow > * + * {
+  margin-top: var(--flow-space, 1em);
+}
+
+/***** other components *****/
+
+/* quote */
+.quote:before {
+  content: "“";
+  font-size: 6rem;
+  font-weight: bold;
+  font-family: Inter;
+  letter-spacing: -0.05em;
+  margin-right: 1rem;
+  position: absolute;
+  top: -0.35em;
+  right: 100%;
+  display: block;
+  color: currentColor;
+}
+
+/* button */
+.button:hover {
+  /* border: 0.5px solid var(--color-light-ghost, #FCF7F8);
+  background: var(--color-primary-red, #EF3340); */
+  box-shadow: 0px 0px 35px 0px rgba(252, 247, 248, 0.19), 0px 0px 7px 0px rgba(255, 255, 255, 0.50);
+}
+
+/* hide elements on page load unless we're in the Webflow Designer */
+html:not(.wf-design-mode) .gsap-hidden {
+  visibility: hidden;
+}
+
+/* set defaults for all line markers to be hidden */
+[class^="line-marker"] {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+/* remove pointer events rom lines */
+[class^="line-wrapper"] {
+  pointer-events: none;
+}
+.hero_lines, .global_lines {
+  pointer-events: none;
+}
+
+/***** hero *****/
+
+.hero_bg {
+  background: linear-gradient(139deg, rgba(0, 36, 125, 0.05) 0%, rgba(255, 255, 255, 0.00) 100%);
+}
+
+.line-marker-hero-01 {
+  top: 0px;
+  left: 0px;
+}
+.line-marker-hero-02 {
+  top: 0px;
+  left: calc( var(--container-margin) + (var(--row-width) * 2 / 12));
+}
+.line-marker-hero-03 {
+  top: calc(100% - var(--line-offset));
+  left: calc( var(--container-margin) + (var(--row-width) * 2 / 12));
+}
+.line-marker-hero-04 {
+  top: calc(100% - var(--line-offset));
+  left: calc( var(--container-margin) + (var(--row-width) * 11 / 12));
+}
+.line-marker-hero-05 {
+  top: 100%;
+  left: calc( var(--container-margin) + (var(--row-width) * 11 / 12));
+}
+
+/* on small screens, move the hero line closer to the LHS */
+@media only screen and (max-width: 992px) {
+  .line-marker-hero-02 {
+    left: calc( var(--container-margin) + (var(--row-width) * 1 / 12));
+  }
+  .line-marker-hero-03 {
+    left: calc( var(--container-margin) + (var(--row-width) * 1 / 12));
+  }
+}
+@media only screen and (max-width: 767px) {
+}
+@media only screen and (max-width: 480px) {
+}
+
+
+/***** vision *****/
+
+.line-marker-vision-01 {
+  position: relative;
+  margin-left: 50%;
+  margin-top: var(--line-offset);
+}
+.line-marker-vision-02 {
+  left: 50%;
+  top: calc(var(--section-padding) * 0.5);
+}
+.line-marker-vision-03 {
+  top: calc(var(--section-padding) * 0.5);
+  left: calc( var(--container-margin) + var(--container-padding) + var(--line-offset));
+}
+.line-marker-vision-04 {
+  top: calc(var(--section-padding) - var(--line-offset));
+  left: calc( var(--container-margin) + var(--container-padding) + var(--line-offset));
+}
+
+/****** intro ******/
+.line-marker-intro-01 {
+  left: calc( -1 * var(--line-offset));
+  top: -1rem;
+}
+.line-marker-intro-02 {
+  top: -1rem;
+}
+
+/* on small screens, hide intro line for ease */
+@media only screen and (max-width: 767px) {
+  /* hidden with GSAP */
+}
+
+
+/***** history *****/
+.line-marker-history-01 {
+  left: calc( var(--container-margin) + var(--container-padding) - var(--line-offset));
+  top: 0px; /* ignore parent section padding */
+}
+.line-marker-history-02 {
+  left: calc( var(--container-margin) + var(--container-padding) - var(--line-offset));
+  transform: translateY(100%);
+  bottom: 0px; /* ignore parent section padding */
+}
+
+/****** benefits ******/
+.line-marker-benefits-01 {
+  left: calc( var(--container-margin) + var(--container-padding) - var(--line-offset));
+  top: 0px; 
+}
+.line-marker-benefits-02 {
+  left: calc( -1 * var(--line-offset));
+  top: var(--line-offset-2);
+}
+.line-marker-benefits-03 {
+  left: 0px;
+  top: var(--line-offset-2);
+}
+.line-marker-benefits-04 {
+  left: 100%;
+  top: calc(var(--line-offset-2) + var(--benefits-card-offset));
+}
+.line-marker-benefits-05 {
+  left: 0px;
+  top: calc(var(--line-offset-2));
+}
+.line-marker-benefits-06 {
+  left: 100%;
+  top: calc(var(--line-offset-2) + var(--benefits-card-offset));
+}
+.line-marker-benefits-07 {
+  left: 0px;
+  top: calc(var(--line-offset-2) );
+}
+.line-marker-benefits-08 {
+  left: 100%;
+  top: calc(100% - var(--line-offset-2) );
+}
+.line-marker-benefits-09 {
+  left: calc( 100% + var(--line-offset));
+  top: calc(100% - var(--line-offset-2) );
+}
+.line-marker-benefits-10 {
+  left: calc( 100% + var(--line-offset));
+  top: calc(100% + var(--benefits-gap) + 1rem);
+}
+.line-marker-benefits-11 {
+  left: calc( 100% + var(--line-offset));
+  top: calc(0% + 1rem);
+}
+
+.benefits_card-wrapper {
+  margin-top: var(--card-offset, 0px);
+}
+.benefits_card-wrapper:nth-child(2) {
+  --card-offset: var(--benefits-card-offset);
+}
+.benefits_card-wrapper:nth-child(3) {
+  --card-offset: calc( 2 * var(--benefits-card-offset) ) ;
+} 
+
+.benefits_card {
+    clip-path: circle(150% at left 23%); 
+}
+
+/* on small screens, lines go vertical between cards */
+@media only screen and (max-width: 767px) {
+  .line-marker-benefits-04, .line-marker-benefits-06, .line-marker-benefits-08, .line-marker-benefits-09, .line-marker-benefits-10 {
+    left: 50%;
+    top: 100%;
+  }
+  .line-marker-benefits-05, .line-marker-benefits-07 {
+    left: 50%;
+    top: 0%;
+  }
+  .line-marker-benefits-11, .line-marker-benefits-12 {
+    left: 50%;
+    top: -2rem;
+  }
+}
+
+
+/****** goals ******/
+
+.goals_card-wrapper {
+  position: relative;
+  top: var(--card-offset, 0px);
+}
+/* .goals_card-wrapper:nth-child(3n-2) {
+  --card-offset: calc( 0 * var(--goals-card-offset) ) ;
+} */
+.goals_card-wrapper:nth-child(3n-1) {
+  --card-offset: calc( 1 * var(--goals-card-offset) ) ;
+}
+.goals_card-wrapper:nth-child(3n) {
+  --card-offset: calc( 2 * var(--goals-card-offset) ) ;
+}
+/* change offsets on small screens */
+@media only screen and (max-width: 992px) {
+  /* on tablet switch from 3 to 2 cols */
+  .goals_card-wrapper:nth-child(3n-1), .goals_card-wrapper:nth-child(3n) {
+    --card-offset: 0px;
+  }
+  .goals_card-wrapper:nth-child(2n) {
+    --card-offset: calc( 1 * var(--goals-card-offset) ) ;
+  }
+}
+@media only screen and (max-width: 767px) {
+  /* on mob landscape switch to 1 cols so no offset needed */
+  .goals_card-wrapper {
+    --card-offset: 0px !important;
+  }
+}
+
+
+/****** join ******/
+.line-marker-join-01 {
+  left: calc( var(--container-margin) + var(--container-padding) + var(--line-offset));
+  top: 0px; 
+}
+.line-marker-join-02 {
+  left: calc( var(--container-margin) + var(--container-padding) + var(--line-offset));
+  top: calc( var(--section-padding) - var(--line-offset) ); 
+}
+.line-marker-join-03 {
+  left: calc( var(--line-offset) );
+  top: 0px; 
+}
+.line-marker-join-04 {
+  left:  calc( var(--line-offset) );
+  top: 3rem; /* 2 rem is manually added gap between rows */
+}
+.line-marker-join-05 {
+  left: calc( -1 * var(--line-offset) );
+  top: 3rem;
+}
+
+/* don't show second join line on small screens */
+@media only screen and (max-width: 767px) {
+  #path-dynamic-join-2 {
+    stroke: none;
+    display: none;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 992px) {
+}
+@media only screen and (max-width: 767px) {
+}
+@media only screen and (max-width: 480px) {
+}
+
+
+/* DEBUG */
+
+/* positions of line markers */
+/* [class^="line-marker"] {
+  opacity: 1;
+  width: 5px;
+  height: 5px;
+  background-color: red;
+} */
